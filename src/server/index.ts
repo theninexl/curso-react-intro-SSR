@@ -3,10 +3,18 @@ import { config } from './config';
 import { template } from './render/template';
 import { render } from './render';
 import axios from 'axios';
+import { webpackMiddleware } from './middlewares/webpackMiddleware';
+
 
 const app:Express = express();
 
+const isDev = process.env.NODE_ENV !=='production';
+
+if(isDev) {
+  app.use(webpackMiddleware());
+} else {
 app.use(express.static('dist'));
+}
 
 //hacer el fetch de galaxias desde el servidor en vez de el cliente
 app.get('/galaxias', async(req:Request, res: Response) => {
