@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { template } from './template';
 
 
-export const render = (url:string) => {
+export const render = (url:string, initialProps={}) => {
   const stream = renderToString(
     <>
     <StaticRouter location={url}>
@@ -13,6 +13,6 @@ export const render = (url:string) => {
     </StaticRouter>
     </>
   );
-  const html = template(stream);
+  const html = template(stream, initialProps);
   return html;
 }
